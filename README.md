@@ -154,7 +154,7 @@ rag-system/
 
 ## 🎥 Demo
 
-https://drive.google.com/file/d/1g4H4gnvXRp9kOGqCzoTRz7VdUxAwQn8m/view?usp=sharing
+https://drive.google.com/file/d/1geMWwSyB7VWaimCE0jQs2urfS5eeAD98/view?usp=sharing
 
 ---
 

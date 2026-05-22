@@ -1,7 +1,10 @@
 fastapi
 uvicorn
+streamlit
 sentence-transformers
 faiss-cpu
 pydantic
 PyPDF2
 slowapi
+numpy
+requests

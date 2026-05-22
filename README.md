@@ -1,158 +1,144 @@
-# RAG-Based Question Answering System
+# 🤖 RAG-Based Question Answering System
 
 ## 📌 Overview
 
-This project is a simple implementation of a Retrieval-Augmented Generation (RAG) system built using FastAPI.
-It allows users to upload documents and ask questions based on the content of those documents.
+This project is a Retrieval-Augmented Generation (RAG) based Question Answering System built using Streamlit, FAISS, and Sentence Transformers.
 
-The system does not rely on general knowledge. Instead, it retrieves relevant information from the uploaded document and uses that as the basis for answering queries.
+The application allows users to upload PDF or TXT documents and ask questions based on the uploaded content. Instead of relying on general AI knowledge, the system retrieves contextually relevant information from the uploaded document using semantic similarity search.
+
+The project demonstrates how modern AI retrieval pipelines work using embeddings, vector databases, and semantic search techniques.
 
 ---
 
 ## 🚀 Features
 
-* Upload documents (PDF and TXT supported)
+* Upload PDF and TXT documents
 * Extract and process document text
-* Chunk text into smaller segments
+* Chunk large text into smaller segments
 * Generate embeddings using Sentence Transformers
-* Store embeddings in FAISS (vector database)
-* Retrieve relevant chunks using similarity search
-* Answer questions based on retrieved content
-* Fast API with simple endpoints
+* Store embeddings in FAISS vector database
+* Perform semantic similarity search
+* Retrieve relevant chunks for answering questions
+* Interactive Streamlit UI
+* Real-time document-based question answering
+* Deployed on Hugging Face Spaces using Docker
 
 ---
 
-## 🧠 How It Works
+## 🧠 Tech Stack
 
-### Step 1: Upload Document
+* Python
+* Streamlit
+* Sentence Transformers
+* FAISS
+* NumPy
+* PyPDF2
+* Docker
+* Hugging Face Spaces
 
-The user uploads a document using the `/upload` endpoint.
+---
 
-### Step 2: Text Extraction
+## ⚙️ How It Works
+
+### 1. Document Upload
+
+Users upload a PDF or TXT document through the Streamlit interface.
+
+### 2. Text Extraction
 
 * PDF files are processed using PyPDF2
 * TXT files are read directly
 
-### Step 3: Chunking
+### 3. Text Chunking
 
-The text is split into smaller chunks:
+The extracted text is divided into smaller chunks.
 
-* Chunk size: 500 characters
+* Chunk Size: 500 characters
 * Overlap: 50 characters
 
-This improves retrieval accuracy and preserves context.
+This helps preserve context and improves retrieval quality.
 
-### Step 4: Embedding Generation
+### 4. Embedding Generation
 
-Each chunk is converted into a numerical vector using the model:
-`all-MiniLM-L6-v2`
+Each text chunk is converted into vector embeddings using:
 
-### Step 5: Storage
+all-MiniLM-L6-v2
 
-All embeddings are stored in FAISS for fast similarity search.
+### 5. Vector Storage
 
-### Step 6: Query Processing
+The embeddings are stored inside a FAISS vector database for efficient similarity search.
 
-* User sends a question via `/query`
-* The question is converted into a vector
-* FAISS retrieves the most similar chunks
+### 6. Question Processing
 
-### Step 7: Answer Generation
+When a user asks a question:
 
-The retrieved chunks are combined and returned as the answer.
+* The question is converted into an embedding vector
+* FAISS searches for the most relevant chunks
+* Similar chunks are retrieved based on vector similarity
+
+### 7. Answer Retrieval
+
+The retrieved chunks are combined and returned as the final response.
 
 ---
 
 ## 📊 Design Decisions
 
-### Chunk Size
+### Chunk Size Selection
 
-A chunk size of 500 with 50 overlap was chosen to balance:
+A chunk size of 500 with 50-character overlap was chosen to balance:
 
 * Context preservation
-* Retrieval precision
+* Retrieval accuracy
+* Efficient vector search
 
-### Retrieval Failure Case
+### Embedding Model
 
-For vague queries like:
-"What is this about?"
+The model `all-MiniLM-L6-v2` was selected because it is:
 
-The system may retrieve less relevant chunks due to lack of clear semantic meaning.
+* Lightweight
+* Fast
+* Effective for semantic similarity tasks
 
-### Metric Tracked
+### Vector Database
 
-Latency (response time) was tracked to measure performance.
-Typical response time: 0.2–0.5 seconds.
+FAISS was used for:
 
----
-
-## ⚙️ Setup Instructions
-
-### 1. Clone Repository
-
-git clone <your-repo-link>
-cd rag-system
-
-### 2. Install Dependencies
-
-pip install -r requirements.txt
-
-### 3. Run Server
-
-uvicorn main:app --reload
-
-### 4. Open in Browser
-
-http://127.0.0.1:8000/docs
-
----
-
-## 🧪 Usage
-
-### Upload Document
-
-* Endpoint: POST `/upload`
-* Upload a PDF or TXT file
-
-### Ask Question
-
-* Endpoint: POST `/query`
-
-Example:
-{
-"question": "What is the document about?"
-}
-
----
-
-## 📁 Project Structure
-
-rag-system/
-│
-├── main.py
-├── requirements.txt
-└── README.md
+* Fast similarity search
+* Efficient vector indexing
+* Low-latency retrieval
 
 ---
 
 ## ⚠️ Limitations
 
-* Only one document is handled at a time (previous data is cleared)
-* No advanced LLM used for answer generation
-* Depends on quality of extracted text
+* Handles one document at a time
+* Retrieval quality depends on extracted text quality
+* No advanced LLM-based answer generation
+* Scanned PDFs may not extract text correctly
 
 ---
 
 ## 🔮 Future Improvements
 
-* Support multiple documents
-* Integrate LLM for better answers
-* Improve UI/UX
-* Add document filtering
+* Multi-document support
+* Conversational memory
+* LLM integration for better answer generation
+* Chat-style UI
+* Source citation support
+* OCR support for scanned PDFs
 
 ---
 
-## 🎥 Demo
+## 🌐 Live Demo
+
+Deployed on Hugging Face Spaces:
+
+https://huggingface.co/spaces/Dishu27/RAG-QA-System
+
+---
+
+## 🎥 Demo Video
 
 https://drive.google.com/file/d/1geMWwSyB7VWaimCE0jQs2urfS5eeAD98/view?usp=sharing
 
@@ -164,8 +150,48 @@ https://drive.google.com/file/d/1_aMmtZnVXVToNW5YGOSIty8wt-5Sv8H_/view?usp=shari
 
 ---
 
+## ⚙️ Setup Instructions
+
+### 1. Clone Repository
+
+git clone <your-repository-link>
+
+cd rag-system
+
+### 2. Install Dependencies
+
+pip install -r requirements.txt
+
+### 3. Run Application
+
+streamlit run app.py
+
+---
+
+## 📁 Project Structure
+
+rag-system/
+│
+├── app.py
+├── requirements.txt
+├── Dockerfile
+├── README.md
+└── .streamlit/
+└── config.toml
+
+---
+
+## 💡 Example Workflow
+
+1. Upload a PDF or TXT document
+2. Ask questions related to the document
+3. System retrieves semantically relevant content
+4. Relevant answer is displayed instantly
+
+---
+
 ## 🙌 Conclusion
 
-This project demonstrates how a RAG pipeline works using embeddings, vector search, and retrieval-based answering.
+This project demonstrates the complete workflow of a Retrieval-Augmented Generation (RAG) pipeline using embeddings, semantic search, and vector databases.
 
-It provides a strong foundation for building more advanced AI-powered systems.
+It provides a strong foundation for building scalable AI-powered document intelligence systems and real-world semantic retrieval applications.
